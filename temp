@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* This handles the 3D "Folding" physics */
+        body { background-color: #f3f4f6; perspective: 1500px; overflow: hidden; }
+        .card-container { position: relative; width: 350px; height: 500px; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
+        .card-container.open { transform: rotateY(-160deg); }
+        .front, .back, .inside { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .front { background: #fffdf5; border: 2px solid #d4af37; z-index: 2; display: flex; align-items: center; justify-content: center; transform-origin: left; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .inside { background: #ffffff; z-index: 1; padding: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border: 1px solid #eee; }
+        .open .front { transform: rotateY(-160deg); }
+        .seal { width: 60px; height: 60px; background: #d4af37; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+    <div id="wedding-card" class="card-container" onclick="toggleCard()">
+        <!-- THE FRONT (The Cover) -->
+        <div class="front">
+            <div class="text-center">
+                <div class="seal mx-auto mb-4">W</div>
+                <h2 class="text-xl font-serif text-gray-700">A Special Invitation</h2>
+                <p class="text-xs uppercase tracking-widest text-gray-400 mt-2">Click to Open</p>
+            </div>
+        </div>
+
+        <!-- THE INSIDE (The Details) -->
+        <div class="inside">
+            <h1 id="names" class="text-3xl font-serif text-gray-800 mb-4">Name 1 & Name 2</h1>
+            <div class="w-12 h-px bg-yellow-600 mb-6"></div>
+            <p class="text-gray-500 uppercase tracking-widest text-xs mb-2">Save the Date</p>
+            <p id="date" class="text-xl font-medium text-gray-700 mb-1">May 24, 2026</p>
+            <p id="location" class="text-gray-600 italic">Amman, Jordan</p>
+            <button class="mt-8 px-6 py-2 border border-yellow-600 text-yellow-600 hover:bg-yellow-600 hover:text-white transition rounded-full text-sm">
+                RSVP Now
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- EDIT THESE DETAILS EASILY ---
+        const config = {
+            names: "Ahmad & Sarah",
+            date: "Friday, August 14, 2026",
+            location: "Karak Castle, Jordan"
+        };
+
+        // This applies your settings to the HTML
+        document.getElementById('names').innerText = config.names;
+        document.getElementById('date').innerText = config.date;
+        document.getElementById('location').innerText = config.location;
+
+        function toggleCard() {
+            document.getElementById('wedding-card').classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
